@@ -1,0 +1,1 @@
+print(f"nilai __name__ pada fundi.py (file fungsi) = '{__name__}'")
