@@ -1,6 +1,24 @@
 from.import database
 from.util import random_string
 import time
+def update(no_buku,data_buku,judul,tahun,penulis,pk,date_add):
+    data = database.TAMPLATE.copy()
+
+    data["pk"] = pk
+    data["date_add"]= date_add
+    data["penulis"]=penulis + database.TAMPLATE["penulis"][len(penulis):]
+    data["judul"]=judul + database.TAMPLATE["judul"][len(judul):]
+    data["tahun"]=str(tahun)
+
+    data_str = f'{data["pk"]},{data["date_add"]},{data["penulis"]},{data["judul"]},{data["tahun"]}\n'
+
+    panjang_data = len(data_str)
+    try:
+        with (open(database.DB_NAME,'r+',encoding="utf-8")) as file:
+            file.seek(panjang_data*(no_buku-1))
+            file.write(data_str)
+    except:
+        print("error dalam update")
 
 def create(tahun,judul,penulis):
 
@@ -50,11 +68,19 @@ def create_first_data():
     except:
         print("udah lah gagal booooooossss")
 
-def read():
+def read(**kwargs):
     try:
         with open(database.DB_NAME, 'r') as file:
-            content = file.readlines()
-            return content
+            content = file.readlines()#Membaca seluruh isi file ke dalam content
+            jumlah_buku = len(content)#Menghitung jumlah baris dalam file (jumlah_buku).
+            if "index" in kwargs:
+                index_buku = kwargs["index"]-1
+                if index_buku < 0 or index_buku >= jumlah_buku:
+                    return False
+                else:
+                    return content[index_buku]
+            else:
+                return content
     except:
         print("membaca database error")
         return False

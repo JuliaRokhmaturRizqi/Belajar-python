@@ -33,7 +33,7 @@ if __name__ == "__main__":
         match user_input:#mencocokkan manakah yang cocok
             case "1": CRUD.read_console()
             case "2": CRUD.create_console()
-            case "3": print("update data")
+            case "3": CRUD.update_console()
             case "4": print("delete data")
 
         is_done=input("apakah udah selesai? (y/n)")
