@@ -1,6 +1,20 @@
 from.import database
 from.util import random_string
 import time
+
+def delete(no_buku):
+    try:
+        with(open(database.DB_NAME,'r')) as file:
+            counter = 0
+            while (True):
+                content = file.readline()
+                if len(content) == 0:
+                    break
+                elif counter = no_buku - 1:
+                    pass
+                else:
+                    with open("data_temp.txt",'a',encoding="utf-8") as temp_file:
+
 def update(no_buku,data_buku,judul,tahun,penulis,pk,date_add):
     data = database.TAMPLATE.copy()
 

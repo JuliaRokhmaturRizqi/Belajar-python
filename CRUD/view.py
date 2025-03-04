@@ -1,4 +1,35 @@
 from. import oprasi
+def delete_console():
+    read_console()
+    while(True):
+        print("silahkan pilih nomor buku yang akan di didelete")
+        no_buku = int(input("masukkan momor buku: "))
+        data_buku=oprasi.read(index = no_buku)
+        #print(data_buku)
+        if data_buku:
+            data_break = data_buku.split(',')
+            pk=data_break[0]
+            date_add=data_break[1]
+            penulis=data_break[2]
+            judul=data_break[3]
+            tahun=data_break[4][:-1]
+
+            #data yang ingin diupdate
+            print("\n"+"="*100)
+            print("data yang ingin anda hapus")
+            print(f"1. judul\t: {judul:.40}")
+            print(f"2. penulis\t: {penulis:.40}")#.40 cuma untuk str
+            print(f"3. tahun\t: {tahun:4}")
+            is_done=input("apakah anda yakin ingin menghapus data? (y/n)")
+            if is_done =="y" or "Y":
+                oprasi.delete(no_buku)
+                break
+        else:
+            print("nomor tidak falid, silahkan masukkan lagi")
+
+    print("data berhasil dihapus")
+
+
 
 def update_console():
     read_console()
@@ -44,7 +75,12 @@ def update_console():
                         print("tahun harus angka, silahkan masukkan lagi (yyyy)")
             case _: print("index tidak cocok")
 
-        is_done=input("apakah udah selesai? (y/n)")
+
+        print("data baru anda")
+        print(f"1. judul\t: {judul:.40}")
+        print(f"2. penulis\t: {penulis:.40}")#.40 cuma untuk str
+        print(f"3. tahun\t: {tahun:4}")
+        is_done=input("apakah data sudah sesuai? (y/n)")
         if is_done == "y" or is_done == "Y":
             break
 
