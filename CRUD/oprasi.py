@@ -1,38 +1,52 @@
 from.import database
 from.util import random_string
 import time
+import os
 
 def delete(no_buku):
     try:
-        with(open(database.DB_NAME,'r')) as file:
+        with open(database.DB_NAME, 'r', encoding="utf-8") as file:
             counter = 0
-            while (True):
+            while True:
                 content = file.readline()
                 if len(content) == 0:
                     break
-                elif counter = no_buku - 1:
-                    pass
+                elif counter == no_buku - 1:
+                    pass  # Lewati data yang mau dihapus
                 else:
-                    with open("data_temp.txt",'a',encoding="utf-8") as temp_file:
-
-def update(no_buku,data_buku,judul,tahun,penulis,pk,date_add):
-    data = database.TAMPLATE.copy()
-
-    data["pk"] = pk
-    data["date_add"]= date_add
-    data["penulis"]=penulis + database.TAMPLATE["penulis"][len(penulis):]
-    data["judul"]=judul + database.TAMPLATE["judul"][len(judul):]
-    data["tahun"]=str(tahun)
-
-    data_str = f'{data["pk"]},{data["date_add"]},{data["penulis"]},{data["judul"]},{data["tahun"]}\n'
-
-    panjang_data = len(data_str)
-    try:
-        with (open(database.DB_NAME,'r+',encoding="utf-8")) as file:
-            file.seek(panjang_data*(no_buku-1))
-            file.write(data_str)
+                    with open("data_temp.txt", 'a', encoding="utf-8") as temp_file:
+                        temp_file.write(content)
+                counter += 1
     except:
-        print("error dalam update")
+        print("database error")
+        return
+
+    try:
+        os.remove(database.DB_NAME)  # Hapus file lama
+        os.rename("data_temp.txt", database.DB_NAME)  # Ganti dengan file baru
+    except:
+        print("Gagal mengganti file database")
+
+
+def update(no_buku, data_buku, judul, tahun, penulis, pk, date_add):
+    try:
+        with open(database.DB_NAME, 'r', encoding="utf-8") as file:
+            lines = file.readlines()
+
+        if no_buku - 1 >= len(lines):
+            print("Nomor buku tidak valid.")
+            return
+
+        # Data baru
+        data_str = f"{pk},{date_add},{penulis.strip()},{judul.strip()},{str(tahun)}\n"
+        lines[no_buku - 1] = data_str
+
+        # Tulis ulang data
+        with open(database.DB_NAME, 'w', encoding="utf-8") as file:
+            file.writelines(lines)
+
+    except Exception as e:
+        print("Gagal mengupdate data:", e)
 
 def create(tahun,judul,penulis):
 

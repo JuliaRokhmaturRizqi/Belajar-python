@@ -110,25 +110,37 @@ def create_console():
 
 def read_console():
     data_file = oprasi.read()
-    index = "No"
-    judul = "Judul"
-    penulis = "Penulis"
-    tahun = "Tahun"
-    #header
-    print("\n"+"="*100)
-    print(f"{index:4} | {judul:40} | {penulis:40} | {tahun:5}")
-    print("-"*100)
 
-    #data
-    for urutan,data in enumerate(data_file):
-        data_break = data.split(",")
+    if not data_file:
+        print("Tidak ada data yang bisa ditampilkan.")
+        return
+
+    # Atur lebar kolom secara dinamis
+    col_width = {
+        "no": 4,
+        "judul": 50,
+        "penulis": 40,
+        "tahun": 5
+    }
+
+    # Header
+    print("\n" + "=" * (col_width["no"] + col_width["judul"] + col_width["penulis"] + col_width["tahun"] + 12))
+    print(f'{"No":<{col_width["no"]}} | {"Judul":<{col_width["judul"]}} | {"Penulis":<{col_width["penulis"]}} | {"Tahun":<{col_width["tahun"]}}')
+    print("-" * (col_width["no"] + col_width["judul"] + col_width["penulis"] + col_width["tahun"] + 12))
+
+    # Data
+    for urutan, data in enumerate(data_file):
+        data_break = data.strip().split(",")
+        if len(data_break) != 5:
+            continue  # skip baris rusak
+
         pk = data_break[0]
         date_add = data_break[1]
         penulis = data_break[2]
         judul = data_break[3]
         tahun = data_break[4]
-        print(f"{urutan+1:4} | {judul:.40} | {penulis:.40} | {tahun:4}" ,end="")
-        #".40" -> artinya memberikan spasi sebanyak 40
 
-    #footer
-    print("="*100+"\n")
+        print(f"{urutan+1:<{col_width['no']}} | {judul[:col_width['judul']]:<{col_width['judul']}} | {penulis[:col_width['penulis']]:<{col_width['penulis']}} | {tahun:<{col_width['tahun']}}")
+
+    # Footer
+    print("=" * (col_width["no"] + col_width["judul"] + col_width["penulis"] + col_width["tahun"] + 12) + "\n")
