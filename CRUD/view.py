@@ -6,15 +6,15 @@ def delete_console():
         no_buku = int(input("masukkan momor buku: "))
         data_buku=oprasi.read(index = no_buku)
         #print(data_buku)
-        if data_buku:
-            data_break = data_buku.split(',')
+        if data_buku: # Kalau datanya ada
+            data_break = data_buku.split(',')# Pisahkan data berdasarkan koma
             pk=data_break[0]
             date_add=data_break[1]
             penulis=data_break[2]
             judul=data_break[3]
-            tahun=data_break[4][:-1]
+            tahun=data_break[4][:-1] # Menghapus newline \n di akhir tahun
 
-            #data yang ingin diupdate
+            # Konfirmasi data yang akan dihapus
             print("\n"+"="*100)
             print("data yang ingin anda hapus")
             print(f"1. judul\t: {judul:.40}")
@@ -32,7 +32,7 @@ def delete_console():
 
 
 def update_console():
-    read_console()
+    read_console() # Tampilkan semua data
     while(True):
         print("silahkan pilih nomor buku yang akan di update")
         no_buku = int(input("masukkan momor buku: "))
@@ -60,6 +60,8 @@ def update_console():
         #memilih mode untuk update
         user_option = input("pilih data [1,2,3]: ")
         print("\n"+"="*100)
+
+        # Input data baru sesuai pilihan user
         match user_option:
             case "1":judul = input("judul\t: ")
             case "2":penulis = input("penulis\t: ")
