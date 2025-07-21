@@ -4,27 +4,29 @@
 
 # Class hero adalah blueprint untuk membuat object karakter hero
 class hero:
+
     # Class variable --> Variabel yang dimiliki bersama oleh semua object dari class ini
     # Digunakan di sini untuk menghitung berapa banyak object hero yang dibuat
-    jumlah = 0
+    jumlah=0
 
     # Constructor / initializer --> Fungsi khusus yang otomatis dipanggil saat object dibuat
     def __init__(self, inputname, inputpower, inputarmor, inputhelth):
+
         # Instance variables --> Variabel yang unik untuk setiap object
         # Menyimpan data untuk masing-masing hero
-        self.name = inputname       # Nama hero
-        self.power = inputpower     # Kekuatan hero
-        self.armor = inputarmor     # Pertahanan hero
-        self.helth = inputhelth     # Kesehatan (HP) hero
+        # instance variabel
+        self.name = inputname   # ⬅️ instance variable
+        self.power = inputpower # ⬅️ instance variable
+        self.armor = inputarmor # ⬅️ instance variable
+        self.helth = inputhelth # ⬅️ instance variable
 
         # Menambahkan jumlah hero setiap kali object baru dibuat
         # Mengakses class variable 'jumlah' melalui nama class 'hero'
-        hero.jumlah += 1
-
+        hero.jumlah += 1#mengakses variabel di class
         # Memberi informasi bahwa object hero berhasil dibuat
-        print("Membuat object hero dengan nama " + inputname)
+        print("membuat object hero dengan nama "+ inputname)
 
-
+        
 # Membuat object hero pertama bernama 'sniper'
 hero1 = hero("sniper", 100, 10, 4)  # Akan mencetak: Membuat object hero dengan nama sniper
 print(hero.jumlah)  # Output: 1 --> karena baru ada 1 hero yang dibuat
