@@ -24,7 +24,7 @@ class hero:
         # Mengakses class variable 'jumlah' melalui nama class 'hero'
         hero.jumlah += 1#mengakses variabel di class
         # Memberi informasi bahwa object hero berhasil dibuat
-        print("membuat object hero dengan nama "+ inputname)
+        print("membuat object hero dengan nama " + inputname)
 
         
 # Membuat object hero pertama bernama 'sniper'
